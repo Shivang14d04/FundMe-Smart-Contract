@@ -3,7 +3,8 @@ ap// get funds from users
 // withdraw funds
 
 // SPDX-License-Identifier:MIT
-pragma solidity^0.8.20;
+// SPDX-License-Identifier: SEE LICENSE IN LICENSE
+pragma solidity ^0.8.25;
 
 import {priceConvertor} from "./priceConvertor.sol";
 error notOwner();
@@ -27,9 +28,6 @@ contract fundMe{
 
     function fund_me()public payable {
 
-        // allow users to send $
-        //have a minimum $ spend
-        // how do we send ethereum to this contract?
         require(msg.value.getConversionRate() >= MIN_USD , " didn't send enough eth");
         funders.push(msg.sender);
         addressToAmountFunded[msg.sender] = addressToAmountFunded[msg.sender] + msg.value;
@@ -38,22 +36,12 @@ contract fundMe{
     }
     function withdraw() public onlyOwner{
 
-        // require(msg.sender== owner , "must be owner");
-
 
         for(uint256 funderIndex = 0 ;funderIndex<funders.length;funderIndex++){
             address funder  = funders[funderIndex];
             addressToAmountFunded[funder] =0;
         }
         funders  =new address[](0);
-
-        // actually withdraw the funds
-        // transfer
-        // payable(msg.sender).transfer(address(this).balance);
-
-        //send
-        // bool sendSuccess = payable (msg.sender).send(address(this).balance);
-        // require(sendSuccess , "send failed");
 
         //call
         (bool callSuccess,)  = payable (msg.sender).call{value: address(this).balance}("");
@@ -63,7 +51,6 @@ contract fundMe{
 
 
     modifier onlyOwner (){
-        // require(msg.sender==i_owner,"must be owner");
         if(msg.sender!=i_owner){
             revert notOwner();
         }
