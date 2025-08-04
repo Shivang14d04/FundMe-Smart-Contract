@@ -38,14 +38,7 @@ This project demonstrates a simple yet powerful funding mechanism that:
 
 ## 🧪 Getting Started
 
-### Clone the repository
-
-```bash
-git clone https://github.com/yourusername/fundme-smart-contract.git
-cd fundme-smart-contract
-```
-
-### Or you can directly run in remix
+### you can directly run this contract in remix
 
 - delete all the default files in remix ide
 - copy and paste the fundme.sol and priceConvertor.sol files in remix
